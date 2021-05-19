@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :note do
-    massage "My important note."
-    association :Project
-    association :user
+    message "My important note."
+    association :project
+    user { project.owner }
   end
 end
