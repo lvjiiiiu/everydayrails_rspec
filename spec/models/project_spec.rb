@@ -23,7 +23,7 @@ RSpec.describe Project, type: :model do
 
     other_user = FactoryBot.create(:user)
     other_project = other_user.projects.build(
-      name: "Test Project",
+      name: "Test Project"
     )
 
     expect(other_project).to be_valid
