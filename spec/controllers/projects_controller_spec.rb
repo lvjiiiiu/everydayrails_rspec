@@ -22,7 +22,16 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     context "as a guest" do
-      
+      # 302レスポンスを返すこと
+      it "returns a 302 response" do
+        get :index
+        expect(response).to have_http_status "302"
+      end
+      # サインイン画面にリダイレクトすること
+      it "redirects to the sign-in page" do
+        get :index
+        expect(response).to redirect_to "/users/sign_in"
+      end
     end
   end
 end
