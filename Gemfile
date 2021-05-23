@@ -24,6 +24,7 @@ end
 
 group :test do
   gem 'launchy', '~> 2.4.3'
+  gem "webdrivers"
 end
 
 group :development do
