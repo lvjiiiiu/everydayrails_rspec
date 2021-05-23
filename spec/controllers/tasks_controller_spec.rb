@@ -24,5 +24,23 @@ RSpec.describe TasksController, type: :controller do
       post :create, format: :json, params: {project_id: @project.id, task: new_task }
       expect(response.content_type).to eq "application/json"
     end
+
+    # 新しいタスクをプロジェクトに追加すること
+    it "add a new task to the project" do
+      new_task = { name: "New test task" }
+      sign_in @user
+      expect {
+        post :create, format: :json, params: { project_id: @project.id, task: new_task }
+      }.to change(@project.tasks, :count).by(1)
+    end
+
+    # 認証を要求すること
+    it "requires authentication" do
+      new_task = { name: "New test task" }
+      expect {
+        post :create, format: :json, params: { project_id: @project.id, task: new_task }
+      }.to_not change(@project.tasks, :count)
+      expect(response).to_not be_success
+    end
   end
 end
