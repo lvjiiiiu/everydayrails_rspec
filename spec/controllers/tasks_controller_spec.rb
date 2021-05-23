@@ -15,4 +15,14 @@ RSpec.describe TasksController, type: :controller do
       expect(response.content_type).to eq "application/json"
     end
   end
+
+  describe "#create" do
+    # JSON形式でレスポンスを返すこと
+    it "response with JSON formatted output" do
+      new_task = { name: "New test task" }
+      sign_in @user
+      post :create, format: :json, params: {project_id: @project.id, task: new_task }
+      expect(response.content_type).to eq "application/json"
+    end
+  end
 end
