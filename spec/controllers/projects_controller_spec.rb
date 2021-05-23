@@ -35,6 +35,23 @@ RSpec.describe ProjectsController, type: :controller do
     end
   end
 
+  describe "#new" do
+    # 認可されたユーザーとして
+    context "as an authorizes user" do
+      before do
+        @user = FactoryBot.create(:user)
+      end
+
+      # 正常にレスポンスを返すこと
+      it "responds successfully" do
+        sign_in @user
+        get :new
+        expect(response).to be_success
+      end
+    end
+  end
+
+
   describe "#show" do
     # 認可されたユーザーとして
     context "as an authorizes user" do
@@ -66,6 +83,10 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  
+
+
 
   describe "#create" do
     # 認可済みのユーザーとして
