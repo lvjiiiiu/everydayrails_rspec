@@ -13,9 +13,10 @@ describe "Projects Api", type: :request do
     }
 
     expect(response).to have_http_status(:success)
-    json = JSON.parse(response.body)
+    p json = JSON.parse(response.body)
     expect(json.length).to eq 1
     project_id = json[0]["id"]
+
 
     get api_project_path(project_id), params: {
       user_email: user.email,
@@ -23,8 +24,12 @@ describe "Projects Api", type: :request do
     }
 
     expect(response).to have_http_status(:success)
-    json = JSON.parse(response.body)
+    p json = JSON.parse(response.body)
     expect(json["name"]).to eq "Second Sample Project"
+  end
+
+  it "creates a project" do
+    
   end
 end
 
