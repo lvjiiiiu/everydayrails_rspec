@@ -8,13 +8,12 @@ RSpec.feature "Tasks", type: :feature do
       name: "RSpec tutorial",
       owner: user)
      }
-  let!(:task) { project.tasks.create!(name: "Finish RSpecr tutorial") }
+  let!(:task) { project.tasks.create!(name: "Finish RSpec tutorial") }
 
   scenario "user toggles a task", js:true do
 
     sign_in user
     go_to_project "RSpec tutorial"
-    save_and_open_page
     complete_task "Finish RSpec tutorial"
     expect_complete_task "Finish RSpec tutorial"
     undo_complete_task "Finish RSpec tutorial"
@@ -45,7 +44,7 @@ RSpec.feature "Tasks", type: :feature do
   def expect_incomplete_task(name)
     aggregate_failures do
       expect(page).to_not have_css "label.completed", text: name
-      expect(task.reload).to_mot be_completed
+      expect(task.reload).to_not be_completed
     end
   end
 end
