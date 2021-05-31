@@ -15,19 +15,21 @@ RSpec.describe Project, type: :model do
   end
 
   # 異なるユーザーであれば重複したプロジェクト名を許可すること
-  it "allows two users to share a project name" do
-    user = FactoryBot.create(:user)
-    user.projects.create(
-      name: "Test Project",
-    )
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:user_id) }
 
-    other_user = FactoryBot.create(:user)
-    other_project = other_user.projects.build(
-      name: "Test Project"
-    )
+  # it "allows two users to share a project name" do
+  #   user = FactoryBot.create(:user)
+  #   user.projects.create(
+  #     name: "Test Project",
+  #   )
 
-    expect(other_project).to be_valid
-  end
+  #   other_user = FactoryBot.create(:user)
+  #   other_project = other_user.projects.build(
+  #     name: "Test Project"
+  #   )
+
+  #   expect(other_project).to be_valid
+  # end
 
   describe "late status" do
     # 締め切り日が過ぎていれば遅延していること
